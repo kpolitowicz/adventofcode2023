@@ -1,28 +1,31 @@
 defmodule CalibrationValue do
-  def extract_from_string(str) do
-    first = Regex.named_captures(~r/^[^0-9]*(?<match>\d)/, str)["match"]
-    last = Regex.named_captures(~r/(?<match>\d)[^0-9]*$/, str)["match"]
+  @simple_first_number_regex ~r/^[^1-9]*(?<match>\d)/
+  @simple_last_number_regex ~r/(?<match>\d)[^1-9]*$/
 
-    Integer.parse(first <> last) |> elem(0)
+  @complex_match "[1-9]|one|two|three|four|five|six|seven|eight|nine"
+  @complex_first_number_regex ~r/^.*?(?<match>#{@complex_match}).*$/
+  @complex_last_number_regex ~r/^.*(?<match>#{@complex_match}).*?$/
+
+  def extract_from_string(str) do
+    first = Regex.named_captures(@simple_first_number_regex, str)["match"]
+    last = Regex.named_captures(@simple_last_number_regex, str)["match"]
+
+    String.to_integer(first <> last)
   end
 
   def extract_from_complex_string(str) do
-    matching = "[1-9]|one|two|three|four|five|six|seven|eight|nine"
+    first = Regex.named_captures(@complex_first_number_regex, str)["match"]
+    last = Regex.named_captures(@complex_last_number_regex, str)["match"]
 
-    first = Regex.named_captures(~r/^.*?(?<match>#{matching}).*$/, str)["match"]
-    last = Regex.named_captures(~r/^.*(?<match>#{matching}).*?$/, str)["match"]
-
-    res =
-    to_int(first) <> to_int(last)
-    |> Integer.parse()
-    |> elem(0)
-
-    # IO.inspect({str, res, first, last})
-
-    res
+    to_int_string(first) <> to_int_string(last)
+    |> String.to_integer()
   end
 
-  defp to_int(str) do
+  # Converts digit specified as word (e.g. "one") into a corresponding
+  # regular digit (e.g. "1").
+  # Returns converted string digit. If the input `str` does not correspond
+  # to any of the "word digits", the original `str` is returned.
+  defp to_int_string(str) do
     case str do
       "one" -> "1"
       "two" -> "2"
