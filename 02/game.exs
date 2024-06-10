@@ -14,4 +14,12 @@ defmodule Game do
       Draw.possible?(draw, bag)
     end)
   end
+
+  def min_set(game) do
+    %{
+      red: Enum.max_by(game.draws, fn draw -> draw.red end).red,
+      green: Enum.max_by(game.draws, fn draw -> draw.green end).green,
+      blue: Enum.max_by(game.draws, fn draw -> draw.blue end).blue,
+    }
+  end
 end

@@ -36,4 +36,18 @@ defmodule GameTest do
     assert Game.possible?(possible_game, bag)
     refute Game.possible?(impossible_game, bag)
   end
+
+  test "knows the minimum bag to play given game" do
+    game = %Game{
+      id: 1,
+      draws: [
+        # Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
+        %Draw{red: 4, blue: 3},
+        %Draw{red: 1, green: 2, blue: 6},
+        %Draw{green: 2}
+      ]
+    }
+
+    assert %{red: 4, green: 2, blue: 6} = Game.min_set(game)
+  end
 end
