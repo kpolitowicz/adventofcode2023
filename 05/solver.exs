@@ -8,4 +8,19 @@ defmodule Solver do
     end)
     |> Enum.min
   end
+
+  def part2(almanac) do
+    seed_ranges =
+      almanac.seeds
+      |> Enum.chunk_every(2)
+      |> Enum.map(fn [start, len] ->
+        Range.new(start, start + len - 1)
+      end)
+
+    min.._//_ = Almanac.seed_range_locations(almanac, seed_ranges)
+    |> Enum.sort()
+    |> Enum.at(0)
+
+    min
+  end
 end
