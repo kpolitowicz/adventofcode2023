@@ -18,4 +18,16 @@ defmodule InputParserTest do
 
     assert ^expected = InputParser.parse(input)
   end
+
+  test "fixes the bad kerning when parsing" do
+    input = [
+      "Time:      7  15   30",
+      "Distance:  9  40  200",
+    ]
+    expected = [
+      %Race{time: 71530, distance: 940200},
+    ]
+
+    assert ^expected = InputParser.parse_ignoring_kerning(input)
+  end
 end

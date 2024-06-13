@@ -12,4 +12,10 @@ defmodule RaceTest do
       assert 9 = Race.ways_to_win(%Race{time: 30, distance: 200})
     end
   end
+
+  describe "Race.binary_search" do
+    test "should find the first time that beats the distance" do
+      assert 14 = Race.binary_search(71530, 940200)
+    end
+  end
 end

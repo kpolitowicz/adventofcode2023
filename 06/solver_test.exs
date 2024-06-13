@@ -14,4 +14,12 @@ defmodule SolverTest do
 
     assert 288 = Solver.part1(races)
   end
+
+  test "finds the number of ways to beat THE ONLY race for part 2" do
+    races = [
+      %Race{time: 71530, distance: 940200},
+    ]
+
+    assert 71503 = Solver.part2(races)
+  end
 end

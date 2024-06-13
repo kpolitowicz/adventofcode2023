@@ -6,4 +6,10 @@ defmodule Solver do
     |> Enum.map(&Race.ways_to_win/1)
     |> Enum.product
   end
+
+  def part2(races) do
+    races
+    |> Enum.at(0)
+    |> Race.ways_to_win()
+  end
 end
