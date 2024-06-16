@@ -28,4 +28,20 @@ class SolverTest < Minitest::Test
 
     assert_equal 6, Solver.part1(routing)
   end
+
+  def test_follow_the_navigation_as_ghost_for_part_2
+    routing =
+      Routing
+        .new("LR")
+        .add_node("11A", ["11B", "XXX"])
+        .add_node("11B", ["XXX", "11Z"])
+        .add_node("11Z", ["11B", "XXX"])
+        .add_node("22A", ["22B", "XXX"])
+        .add_node("22B", ["22C", "22C"])
+        .add_node("22C", ["22Z", "22Z"])
+        .add_node("22Z", ["22B", "22B"])
+        .add_node("XXX", ["XXX", "XXX"])
+
+    assert_equal 6, Solver.part2(routing)
+  end
 end
