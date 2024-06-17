@@ -6,4 +6,10 @@ defmodule Solver do
     |> Enum.map(&HistoryForecast.next_value/1)
     |> Enum.sum
   end
+
+  def part2(history) do
+    history
+    |> Enum.map(&HistoryForecast.past_value/1)
+    |> Enum.sum
+  end
 end

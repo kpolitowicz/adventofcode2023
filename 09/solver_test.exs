@@ -14,4 +14,14 @@ defmodule SolverTest do
 
     assert 114 = Solver.part1(history)
   end
+
+  test "finds the sum of past extrapolations for part 2" do
+    history = [
+      [0, 3, 6, 9, 12, 15],
+      [1, 3, 6, 10, 15, 21],
+      [10, 13, 16, 21, 30, 45]
+    ]
+
+    assert 2 = Solver.part2(history)
+  end
 end
